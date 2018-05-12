@@ -341,7 +341,7 @@ int main(int argc, char** argv)
 
 		if(use_default_config){
 		    cout << "\nUsing defalut.txt options: -use " << options;
-			if(targetfile!=NULL){
+			if(targetfile!=ITK_NULLPTR){
 				cout << " -xml " << targetfile;
 			}
 			if(threshold!=-1){

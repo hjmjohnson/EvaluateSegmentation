@@ -42,13 +42,13 @@ itk::DOMNode::Pointer dOMObject;
 
 itk::DOMNode*  AddNodeWithAttributeIfNotExists(itk::DOMNode* parentNode, const char *nodename, const char * attributename, const char* attributeValue){
 	itk::DOMNode* node = parentNode->GetChild( nodename);
-	if(node == NULL){ 
+	if(node == ITK_NULLPTR){ 
 		itk::DOMNode::Pointer n = itk::DOMNode::New();
 		node = (itk::DOMNode *)n;
 		parentNode->AddChildAtEnd( node );
 		node->SetName( nodename); 
 	}
-	if(attributename != NULL && attributeValue != NULL){
+	if(attributename != ITK_NULLPTR && attributeValue != ITK_NULLPTR){
 		node->SetAttribute( attributename, attributeValue );
 	}
 	return node;
@@ -56,7 +56,7 @@ itk::DOMNode*  AddNodeWithAttributeIfNotExists(itk::DOMNode* parentNode, const c
 
 
 itk::DOMNode::Pointer  OpenSegmentationResultXML(const char* targtfile, const char* fixedImage, const char* movingImage, int num_pt_f, int num_pt_m, int num_intersec){
-	if(targtfile != NULL){
+	if(targtfile != ITK_NULLPTR){
 
 		const char* xMLFileName = targtfile;
 		if(itksys::SystemTools::FileExists(xMLFileName,true)){
@@ -88,16 +88,16 @@ itk::DOMNode::Pointer  OpenSegmentationResultXML(const char* targtfile, const ch
 
 		return dOMObject;
 	}
-	return NULL;
+	return ITK_NULLPTR;
 }
 
 void  pushTotalExecutionTime(long time,  itk::DOMNode::Pointer xmlObject){
-	if(xmlObject != (itk::DOMNode::Pointer)NULL){
+	if(xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
 		char val [50];
 		sprintf(val, "%ld", time);
 		const char* name="time";
 		itk::DOMNode* node = dOMObject->GetChild(name);
-		if(node == NULL){ 
+		if(node == ITK_NULLPTR){ 
 			itk::DOMNode::Pointer n = itk::DOMNode::New();
 			node = (itk::DOMNode *)n;
 			dOMObject->AddChildAtEnd( node );
@@ -111,7 +111,7 @@ void  pushDimentions(int max_x, int max_y, int max_z, double vsp_x, double vsp_y
 	if(xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
 		const char* name="dimention";
 		itk::DOMNode* node = dOMObject->GetChild(name);
-		if(node == NULL){ 
+		if(node == ITK_NULLPTR){ 
 			itk::DOMNode::Pointer n = itk::DOMNode::New();
 			node = (itk::DOMNode *)n;
 			dOMObject->AddChildAtEnd( node );
@@ -138,7 +138,7 @@ void  pushDimentions(int max_x, int max_y, int max_z, double vsp_x, double vsp_y
 }
 
 void SaveXmlObject(itk::DOMNode::Pointer xmlObject, const char* targtfile){
-	if(targtfile != NULL && xmlObject != (itk::DOMNode::Pointer)NULL){
+	if(targtfile != ITK_NULLPTR && xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
 		itk::DOMNodeXMLWriter::Pointer writer = itk::DOMNodeXMLWriter::New();
 		writer->SetInput(xmlObject );
 		writer->SetFileName( targtfile );
@@ -168,20 +168,20 @@ static void pushValue(MetricId id, double value, itk::DOMNode::Pointer xmlObject
         }
 
     char unit_s[50];
-	if(unit != NULL)
+	if(unit != ITK_NULLPTR)
 	    sprintf(unit_s, " (in %s)", unit);
 	else
 		sprintf(unit_s, " %s", "");
 
 	std::cout << metricInfo[id].metrSymb << "\t= " << val << "\t" << metricInfo[id].metrInfo << unit_s << std::endl;
-	if(xmlObject != (itk::DOMNode::Pointer)NULL){
-		itk::DOMNode* metricnode = AddNodeWithAttributeIfNotExists((itk::DOMNode*)xmlObject, "metrics", NULL, NULL);
+	if(xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
+		itk::DOMNode* metricnode = AddNodeWithAttributeIfNotExists((itk::DOMNode*)xmlObject, "metrics", ITK_NULLPTR, ITK_NULLPTR);
 		AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "name", metricInfo[id].metrInfo);
 		AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "symbol",  metricInfo[id].metrSymb);
 		const char* type = metricInfo[id].similarity?"similarity":"distance";
 		AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "type",  type);
 		AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "value", val);
-		if(unit != NULL){
+		if(unit != ITK_NULLPTR){
  	       AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "unit", unit);
 		}
 	}
@@ -195,7 +195,7 @@ static void pushValue(MetricId id, double value, double executiontime,  itk::DOM
 	sprintf(val, "%.6f", value);
 	
 	char unit_s[50];
-	if(unit != NULL)
+	if(unit != ITK_NULLPTR)
 	    sprintf(unit_s, " (in %s)", unit);
 	else
 		sprintf(unit_s, " %s", "");
@@ -203,8 +203,8 @@ static void pushValue(MetricId id, double value, double executiontime,  itk::DOM
 
 	std::cout << metricInfo[id].metrSymb << "\t= " << val << "\t" << metricInfo[id].metrInfo << unit_s << std::endl;
 
-	if(xmlObject != (itk::DOMNode::Pointer)NULL){
-		itk::DOMNode* metricnode = AddNodeWithAttributeIfNotExists((itk::DOMNode*)xmlObject, "metrics", NULL, NULL);
+	if(xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
+		itk::DOMNode* metricnode = AddNodeWithAttributeIfNotExists((itk::DOMNode*)xmlObject, "metrics", ITK_NULLPTR, ITK_NULLPTR);
 		AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "name", metricInfo[id].metrInfo);
 		AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "symbol",  metricInfo[id].metrSymb);
 		const char* type = metricInfo[id].similarity?"similarity":"distance";
@@ -214,7 +214,7 @@ static void pushValue(MetricId id, double value, double executiontime,  itk::DOM
 		sprintf(exect, "%.0f", executiontime);
 		AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "executiontime", exect);
 
-		if(unit != NULL){
+		if(unit != ITK_NULLPTR){
  	       AddNodeWithAttributeIfNotExists(metricnode, metricInfo[id].metrId, "unit", unit);
 		}
 	}
@@ -225,7 +225,7 @@ static void pushValue(MetricId id, double value, double executiontime,  itk::DOM
 
 void pushMessage(const char *message, const char* targtfile, const char* fixedImage, const char* movingImage){
 	std::cout <<  message << std::endl;
-	if(targtfile != NULL){
+	if(targtfile != ITK_NULLPTR){
 		itk::DOMNode::Pointer dOMObject;
 		const char* xMLFileName = targtfile;
 		if(itksys::SystemTools::FileExists(xMLFileName,true)){
@@ -242,7 +242,7 @@ void pushMessage(const char *message, const char* targtfile, const char* fixedIm
 
 		AddNodeWithAttributeIfNotExists(dOMObject, "fixed-image", "filename", fixedImage);
 		AddNodeWithAttributeIfNotExists(dOMObject, "moving-image", "filename", movingImage);
-		itk::DOMNode* messagenode = AddNodeWithAttributeIfNotExists(dOMObject, "message", NULL, NULL);
+		itk::DOMNode* messagenode = AddNodeWithAttributeIfNotExists(dOMObject, "message", ITK_NULLPTR, ITK_NULLPTR);
 		itk::FancyString s;
 		s << message;
 		messagenode->AddTextChildAtEnd( s );

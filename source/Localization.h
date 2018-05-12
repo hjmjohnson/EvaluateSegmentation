@@ -100,11 +100,11 @@ Landmark* findMatchingLandmark(Landmark *testLandmark, vector<Landmark> landmark
 		 }
 		 
 	}
-	return NULL;
+	return ITK_NULLPTR;
 }
 
 itk::DOMNode::Pointer  OpenLocalizationResultXML(const char* targtfile, const char* truthLocFile, const char* testLocFile){
-	if(targtfile != NULL){
+	if(targtfile != ITK_NULLPTR){
 
 		itk::DOMNode::Pointer dOMObject;
 		const char* xMLFileName = targtfile;
@@ -133,10 +133,10 @@ itk::DOMNode::Pointer  OpenLocalizationResultXML(const char* targtfile, const ch
 		landmarksnode->SetName( "Landmarks"); 
 		return dOMObject;
 	}
-	return NULL;
+	return ITK_NULLPTR;
 }
 void SaveLocalizationResultXML(itk::DOMNode::Pointer xmlObject, const char* targtfile){
-	if(targtfile != NULL && xmlObject != (itk::DOMNode::Pointer)NULL){
+	if(targtfile != ITK_NULLPTR && xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
 	    itk::DOMNodeXMLWriter::Pointer writer = itk::DOMNodeXMLWriter::New();
 		writer->SetInput(xmlObject );
 		writer->SetFileName( targtfile );
@@ -148,7 +148,7 @@ void SaveLocalizationResultXML(itk::DOMNode::Pointer xmlObject, const char* targ
 
 void compareLandmarks(Landmark* truth, Landmark* test, itk::DOMNode::Pointer xmlObject){
 
-	if(truth!=NULL){
+	if(truth!=ITK_NULLPTR){
 		double value =  sqrt((double)((truth->x-test->x)*(truth->x-test->x) + (truth->y-test->y)*(truth->y-test->y) + (truth->z-test->z)*(truth->z-test->z)));
 		char val [50];
 		sprintf(val, "%.6f", value);
@@ -158,9 +158,9 @@ void compareLandmarks(Landmark* truth, Landmark* test, itk::DOMNode::Pointer xml
 		char s_test[100];
 		sprintf(s_test, "(%.0f,%.0f,%.0f)", test->x, test->y, test->z);
 
-		if(xmlObject != (itk::DOMNode::Pointer)NULL){
+		if(xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
 			itk::DOMNode * landmarksnode= xmlObject->GetChild("Landmarks");
-			if(landmarksnode != NULL){
+			if(landmarksnode != ITK_NULLPTR){
 				itk::DOMNode::Pointer n = itk::DOMNode::New();
 				itk::DOMNode* node =(itk::DOMNode*)n;
 				node->SetName( "Landmark"); 
@@ -177,9 +177,9 @@ void compareLandmarks(Landmark* truth, Landmark* test, itk::DOMNode::Pointer xml
 		std::cout << "????????" << "\t= " << test->Id << " (No ground truth for this Landmark!)" << std::endl;
 		char s_test[100];
 		sprintf(s_test, "(%.0f,%.0f,%.0f)", test->x, test->y, test->z);
-		if(xmlObject != (itk::DOMNode::Pointer)NULL){
+		if(xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
 			itk::DOMNode * landmarksnode= xmlObject->GetChild("Landmarks");
-			if(landmarksnode != NULL){
+			if(landmarksnode != ITK_NULLPTR){
 				itk::DOMNode::Pointer n = itk::DOMNode::New();
 				itk::DOMNode* node =(itk::DOMNode*)n;
 				node->SetName( "Landmark"); 

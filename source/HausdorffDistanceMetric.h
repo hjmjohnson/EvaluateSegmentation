@@ -365,7 +365,7 @@ public:
 	}
 
 	void shuttle(VoxelInfo* arr, int len){
-		   srand (time(NULL));
+		   srand (time(ITK_NULLPTR));
 		   for(int i=0 ; i< len ; i++){
 			   int r1 = std::abs(rand()*rand() + rand());
 		       r1 = r1 %len;

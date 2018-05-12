@@ -100,20 +100,20 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 		std::cout << "Crisp segmentation at threshold= " << threshold << "\n" << std::endl;
 	}
 	ImageType::Pointer truthImg = loadImage(f1, useStreamingFilter);
-	if(truthImg == (ImageType::Pointer) 0){
+	if(truthImg == (ImageType::Pointer) ITK_NULLPTR){
 		return EXIT_FAILURE;
 	}
 
 	ImageType::Pointer testImg = loadImage(f2, useStreamingFilter);
 
-	if(testImg == (ImageType::Pointer) 0){
+	if(testImg == (ImageType::Pointer) ITK_NULLPTR){
 		return EXIT_FAILURE;
 	}
 
 	imagestatistics = new ImageStatistics(truthImg, testImg, fuzzy, threshold);
 
 	values_f = (pixeltype*) malloc(imagestatistics->numberElements_f * sizeof(pixeltype));
-	if(values_f == NULL){
+	if(values_f == ITK_NULLPTR){
 		std::cout << "Memory allocation 1 !" << std::endl;
 		return  EXIT_FAILURE ;
 	}
@@ -122,7 +122,7 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 		values_f[i]=0;
 	}
 	values_m = (pixeltype*) malloc(imagestatistics->numberElements_m * sizeof(pixeltype));
-	if(values_m == NULL){
+	if(values_m == ITK_NULLPTR){
 		std::cout << "Memory allocation 2 !" << std::endl;
 		return  EXIT_FAILURE;
 	}
@@ -187,21 +187,21 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 	if(shouldUse(metricId, options)){
 		DiceCoefficientMetric *diceCoefficient = new DiceCoefficientMetric(contingenceTable, fuzzy, threshold);
 		value = diceCoefficient->CalcDiceCoeff();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = JACRD;
 	if(shouldUse(metricId, options)){
 		JaccardCoefficientMetric *jaccardCoefficient = new JaccardCoefficientMetric(contingenceTable, fuzzy, threshold);
 		value =  jaccardCoefficient->CalcJaccardCoeff();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	ClassicMeasures *classicMeasures = new ClassicMeasures(contingenceTable, fuzzy, threshold);
 	metricId = AUC;
 	if(shouldUse(metricId, options)){
 		value =  classicMeasures->CalcAUC();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 
@@ -209,19 +209,19 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 	if(shouldUse(metricId, options)){
 		CohinKappaMetric *cohinKappa = new CohinKappaMetric(contingenceTable, fuzzy, threshold);
 		value =  cohinKappa->CalcCohenKappa();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = RNDIND;
 	RandIndexMetric *randIndex = new RandIndexMetric(contingenceTable, fuzzy, threshold);
 	if(shouldUse(metricId, options)){
 		value =  randIndex->CalcRandIndex();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 	metricId = ADJRIND;
 	if(shouldUse(metricId, options)){
 		value =  randIndex->CalcAdjustedRandIndex();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 
@@ -229,21 +229,21 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 	if(shouldUse(metricId, options)){
 		InterclassCorrelationMetric *interclassCorrelation = new InterclassCorrelationMetric(voxelPreprocessor, fuzzy, threshold);
 		value =  interclassCorrelation->CalcInterClassCorrelationCoeff();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = VOLSMTY;
 	if(shouldUse(metricId, options)){
 		VolumeSimilarityCoefficient *volumetricSimilarity = new VolumeSimilarityCoefficient(contingenceTable, fuzzy, threshold);
 		value =  volumetricSimilarity->CalcVolumeSimilarityCoefficient();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = MUTINF;
 	if(shouldUse(metricId, options)){
 		MutualInformationMetric *mutualInformation = new MutualInformationMetric(contingenceTable, fuzzy, threshold);
 		value =  mutualInformation->CalcMutualInformation();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 
@@ -305,13 +305,13 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 	if(shouldUse(metricId, options)){
 		MahalanobisDistanceMetric *mahalanobisDistance = new MahalanobisDistanceMetric(truthImg, testImg, voxelPreprocessor, fuzzy, threshold);
 		value =  mahalanobisDistance->CalcMahalanobisDistace();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 	metricId = VARINFO;
 	if(shouldUse(metricId, options)){
 		VariationOfInformationMetric *variationOfInformation = new VariationOfInformationMetric(contingenceTable, fuzzy, threshold);
 		value =  variationOfInformation->CalcVariationOfInformation();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 
@@ -320,14 +320,14 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 
 		GlobalConsistencyError *globalConsistencyError = new GlobalConsistencyError(contingenceTable, fuzzy, threshold);
 		value = globalConsistencyError->CalcGlobalConsistencyError();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = PROBDST;
 	if(shouldUse(metricId, options)){
 		ProbabilisticDistanceMetric *probabilisticDistance = new ProbabilisticDistanceMetric(voxelPreprocessor, fuzzy, threshold);
 		value =  probabilisticDistance->CalcJProbabilisticDistance();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 
@@ -336,21 +336,21 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 	metricId = SNSVTY;
 	if(shouldUse(metricId, options)){
 		value =  classicMeasures->CalcSensitivity();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 
 	metricId = SPCFTY;
 	if(shouldUse(metricId, options)){
 		value =  classicMeasures->CalcSpecificity();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 
 	metricId = PRCISON;
 	if(shouldUse(metricId, options)){
 		value =  classicMeasures->CalcPrecision();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = FMEASR;
@@ -362,18 +362,18 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 			stm>>beta;
 		}
 		value =  classicMeasures->CalcFMeasure(beta);
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 	metricId = ACURCY;
 	if(shouldUse(metricId, options)){
 		value =  classicMeasures->CalcAccuracy();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = FALLOUT;
 	if(shouldUse(metricId, options)){
 		value =  classicMeasures->CalcFallout();
-		pushValue(metricId, value, xmlObject,false, NULL);
+		pushValue(metricId, value, xmlObject,false, ITK_NULLPTR);
 	}
 
 	metricId = TP;
@@ -453,7 +453,7 @@ ImageType::Pointer loadImage( const char* filename, bool useStreamingFilter){
 	else{
 		if(!itksys::SystemTools::FileExists(filename,true)){
 			cout << "Image doesn't exist: " << filename << std::endl;
-			return 0;
+			return ITK_NULLPTR;
 		}
 		try
 		{

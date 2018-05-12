@@ -42,8 +42,8 @@ std::runtime_error CreateSocketError()
     temp << "Socket-Fehler #" << error;
     char* msg;
     if(FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-                     NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-                     reinterpret_cast<char*>(&msg), 0, NULL))
+                     ITK_NULLPTR, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+                     reinterpret_cast<char*>(&msg), 0, ITK_NULLPTR))
     {
         try
         {
@@ -184,7 +184,7 @@ std::string download_image(const char* url, std::string filename)
 
     hostent* phe = gethostbyname(hostname.c_str());
 
-    if(phe == NULL)
+    if(phe == ITK_NULLPTR)
     {
         cout << "Host can not be resolved!" << endl;
         return "";
@@ -217,7 +217,7 @@ std::string download_image(const char* url, std::string filename)
     int result; 
     do
     {
-        if(*p == NULL) 
+        if(*p == ITK_NULLPTR) 
         {
             cout << "connection not successful!" << endl;
             return "";
