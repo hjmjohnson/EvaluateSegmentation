@@ -83,7 +83,7 @@ const std::string nooption = "NOOPTION";
 ImageType::Pointer loadImage(const char* filename,  bool useStreamingFilter);
 
 
-int validateImage(const char* f1, const char* f2, double threshold, const char* targetFile, char *options, char* unit, long long int time_start, bool useStreamingFilter)
+static int validateImage(const char* f1, const char* f2, double threshold, const char* targetFile, char *options, const char* unit, long long int time_start, bool useStreamingFilter)
 {
 
     bool use_millimeter=false;
@@ -513,11 +513,8 @@ ImageType::Pointer loadImage( const char* filename, bool useStreamingFilter){
 			std::cerr << "Unable to load image!" << std::endl;
 			std::cerr << err << std::endl;
 		}
-
-
 	}
-
-
+	return ITK_NULLPTR;
 }
 
 
