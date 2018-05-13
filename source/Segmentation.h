@@ -100,13 +100,12 @@ static int validateImage(const char* f1, const char* f2, double threshold, const
 		std::cout << "Crisp segmentation at threshold= " << threshold << "\n" << std::endl;
 	}
 	ImageType::Pointer truthImg = loadImage(f1, useStreamingFilter);
-	if(truthImg == (ImageType::Pointer) ITK_NULLPTR){
+	if(truthImg.IsNull()){
 		return EXIT_FAILURE;
 	}
 
 	ImageType::Pointer testImg = loadImage(f2, useStreamingFilter);
-
-	if(testImg == (ImageType::Pointer) ITK_NULLPTR){
+	if(testImg.IsNull() ){
 		return EXIT_FAILURE;
 	}
 

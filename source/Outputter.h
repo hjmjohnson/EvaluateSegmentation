@@ -92,7 +92,7 @@ itk::DOMNode::Pointer  OpenSegmentationResultXML(const char* targtfile, const ch
 }
 
 void  pushTotalExecutionTime(long time,  itk::DOMNode::Pointer xmlObject){
-	if(xmlObject != (itk::DOMNode::Pointer)ITK_NULLPTR){
+	if( xmlObject.IsNotNull() ){
 		char val [50];
 		sprintf(val, "%ld", time);
 		const char* name="time";
