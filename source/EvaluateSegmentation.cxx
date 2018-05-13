@@ -144,8 +144,8 @@ vector<string> parseDefaults(){
 	vector<string> options;
 	ifstream i_stream;
 	std::string line, token;
-	char* filename = (char*)"default.txt";
-	i_stream.open(filename); 
+	const std::string filename ( "default.txt" );
+	i_stream.open(filename.c_str() );
 
 	if (i_stream.is_open()) {
 		while (i_stream.good()) {
@@ -340,7 +340,7 @@ int main(int argc, char** argv)
 		}
 
 		if(use_default_config){
-		    cout << "\nUsing defalut.txt options: -use " << options;
+		    cout << "\nUsing default.txt options: -use " << options;
 			if(targetfile!=ITK_NULLPTR){
 				cout << " -xml " << targetfile;
 			}
